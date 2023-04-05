@@ -15,13 +15,13 @@ export const ContactForm = ({addUser}) => {
   const [name,setName] = useState('')
   const [number,setNumber] = useState('')
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-    console.log()
-    if (name==="name") setName(value)
-    if (name==="number") setNumber(value)
+  // const handleChange = event => {
+  //   const { name, value } = event.target;
+  //   console.log()
+  //   if (name==="name") setName(value)
+  //   if (name==="number") setNumber(value)
     
-  };
+  // };
 
   const handleAddUser = e => {
     e.preventDefault();
@@ -42,7 +42,7 @@ export const ContactForm = ({addUser}) => {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             className={st.name}
             value={name}
-            onChange={handleChange}
+            onChange={e=>setName(e.target.value)}
             required
           />
         </label>
@@ -55,7 +55,7 @@ export const ContactForm = ({addUser}) => {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             className={st.number}
             value={number}
-            onChange={handleChange}
+            onChange={e=>setNumber(e.target.value)}
             required
           />
         </label>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import sid from 'shortid';
-import {ContactForm} from './ContactForm/ContactForm';
+import { ContactForm } from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 import { useEffect } from 'react';
@@ -9,12 +9,11 @@ export const App = () => {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
-  const initContacts = [
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ];
+  //   if (!localStorage.getItem('contacts')) {
+  //   setContacts(initContacts);
+  // }
+  // else setContacts(JSON.parse(localStorage.getItem('contacts')));
+  // console.log("effect")
 
   const addUser = ({ name, number }) => {
     // console.log(name, number);
@@ -42,15 +41,18 @@ export const App = () => {
 
   useEffect(() => {
     if (!localStorage.getItem('contacts')) {
-      setContacts(initContacts);
+      setContacts([
+        { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+        { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+        { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+        { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+      ]);
     } else setContacts(JSON.parse(localStorage.getItem('contacts')));
-    // console.log("effect")
   }, []);
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
     if (!contacts.length) localStorage.removeItem('contacts');
-    // console.log("effect upd")
   }, [contacts]);
 
   return (
@@ -60,11 +62,13 @@ export const App = () => {
 
       <h2>Contacts</h2>
       <Filter filterUser={filterUser} />
-      <ContactList
-        contacts={contacts}
-        filter={filter}
-        removeUser={removeUser}
-      />
+      {contacts && (
+        <ContactList
+          contacts={contacts}
+          filter={filter}
+          removeUser={removeUser}
+        />
+      )}
     </div>
   );
 };
