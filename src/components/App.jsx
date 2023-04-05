@@ -17,7 +17,7 @@ export const App = () => {
 
   const addUser = ({ name, number }) => {
     // console.log(name, number);
-    if (contacts.find(el => el.name === name)||
+    if (contacts.find(el => el.name.toLowerCase() === name.toLowerCase())||
     contacts.find(el => el.number === number)) {
       alert(`${name} or ${number} is already in contacts`);
       return;
